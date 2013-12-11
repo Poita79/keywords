@@ -1,6 +1,7 @@
 package pk
 
 // TODO should extends PartialFunction instead?
+// TODO StringyMap?
 trait Keyword[V] extends (Map[String, Any] => V) {
   val key: String
   val clazz: Class[_]
