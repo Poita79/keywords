@@ -9,8 +9,6 @@ trait Keyword[V] extends (Map[String, Any] => V) {
 
   def apply(candidate: Map[String, Any]): V = extractValue(candidate).fold(ex => throw ex, identity)
 
-  def conforms(candidate: Map[String, Any]): Boolean = extractValue(candidate).isRight
-
   def explainFailure(candidate: Map[String, Any]): String = extractValue(candidate).left.map(_.getMessage).left.getOrElse("")
 
 

@@ -14,7 +14,6 @@ class KeywordTest extends FunSuite with Matchers {
       "age" -> 23
     )
 
-    name.conforms(joe) should be(true)
     name(joe) should be("Joe Bloggs")
     name.get(joe) should be(Some("Joe Bloggs"))
   }
@@ -26,7 +25,6 @@ class KeywordTest extends FunSuite with Matchers {
       "age" -> 23
     )
 
-    name.conforms(joe) should be(false)
     name.get(joe) should be(None)
     val ex = the [NoSuchElementException] thrownBy {
      name(joe)
@@ -41,7 +39,6 @@ class KeywordTest extends FunSuite with Matchers {
       "age" -> 23
     )
 
-    name.conforms(joe) should be(false)
     name.get(joe) should be(None)
     val ex = intercept[ClassCastException] {
       name(joe)
