@@ -41,7 +41,6 @@ class KeywordTest extends FunSuite with Matchers {
     )
 
     name.get(joe) should be(None)
-    name(joe)
     val ex = intercept[ClassCastException] {
       name(joe)
     }
