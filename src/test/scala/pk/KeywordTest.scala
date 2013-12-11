@@ -7,24 +7,26 @@ class KeywordTest extends FunSuite with Matchers {
   val name = Keyword[String]("name")
   val department = Keyword[Map[String, Any]]("department")
 
-  test("apply and get under successful inputs") {
+  test("apply, get and conforms under successful inputs") {
 
     val joe: Map[String, Any] = Map(
       "name" -> "Joe Bloggs",
       "age" -> 23
     )
 
+    name.conforms(joe) should be(true)
     name(joe) should be("Joe Bloggs")
     name.get(joe) should be(Some("Joe Bloggs"))
   }
 
 
-  test("apply and get when key not present") {
+  test("apply, get and conforms when key not present") {
 
     val joe: Map[String, Any] = Map(
       "age" -> 23
     )
 
+    name.conforms(joe) should be(false)
     name.get(joe) should be(None)
     val ex = the [NoSuchElementException] thrownBy {
      name(joe)
@@ -32,13 +34,14 @@ class KeywordTest extends FunSuite with Matchers {
     ex.getMessage should include (joe.toString)
   }
 
-  test("apply and get when key is of incorrect type") {
+  test("apply, get and conforms when key is of incorrect type") {
 
     val joe: Map[String, Any] = Map(
       "name" -> 123,
       "age" -> 23
     )
 
+    name.conforms(joe) should be(false)
     name.get(joe) should be(None)
     val ex = intercept[ClassCastException] {
       name(joe)
