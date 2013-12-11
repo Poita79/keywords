@@ -11,3 +11,5 @@ case class Structure(key: String, keywords: Keyword[_]*) extends Keyword[Map[Str
 
   def cast(candidate: Map[String, Any]): Option[Map[String, Any]] = if (conforms(candidate)) Some(candidate) else None
 }
+
+// TODO implicit conversion from StringyMap to a class that has the Structure API?

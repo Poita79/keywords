@@ -1,5 +1,6 @@
 package pk
 
+// TODO should extends PartialFunction instead?
 trait Keyword[V] extends (Map[String, Any] => V) {
   val key: String
   val clazz: Class[_]
@@ -59,3 +60,5 @@ object Keyword {
     classOf[java.lang.Double] -> classOf[scala.Double]
   )
 }
+
+// TODO implicit conversion from StringyMap to a class that has the Keyword API?
