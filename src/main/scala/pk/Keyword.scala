@@ -1,10 +1,7 @@
 package pk
 
-trait Keyword[V] extends (Map[String, Any] => V) { self =>
-  val key: String
-  val aClass: Class[V]
-
-  trait TestFailure
+case class Keyword[V: Manifest](key: String) extends (Map[String, Any] => V) {
+  val aClass: Class[_] = implicitly[Manifest[V]].runtimeClass
 
   def get(candidate: Map[String, Any]): Option[V] = extractValue(candidate).right.toOption
 
@@ -41,11 +38,6 @@ trait Keyword[V] extends (Map[String, Any] => V) { self =>
 }
 
 object Keyword {
-
-  def apply[V: Manifest](name: String) = new Keyword[V] {
-    val key = name
-    val aClass = implicitly[Manifest[V]].runtimeClass.asInstanceOf[Class[V]]
-  }
 
   private val equivalentTypes = Seq(
     classOf[java.lang.Byte] -> classOf[scala.Byte],
