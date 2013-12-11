@@ -32,7 +32,6 @@ class KeywordTest extends FunSuite with Matchers {
     ex.getMessage should include (joe.toString)
   }
 
-
   test("apply and get when key is of incorrect type") {
 
     val joe: Map[String, Any] = Map(
@@ -45,6 +44,22 @@ class KeywordTest extends FunSuite with Matchers {
       name(joe)
     }
     ex.getMessage should (include ("String") and include("Int") )
+  }
+
+  test("explainFailure can be used to return a useful debugging message") {
+
+    val joe: Map[String, Any] = Map(
+      "age" -> 23
+    )
+
+    name.explainFailure(joe) should include (joe.toString)
+
+    val joe2: Map[String, Any] = Map(
+      "name" -> 123,
+      "age" -> 23
+    )
+
+    name.explainFailure(joe2) should include (joe2.toString)
   }
 
 
