@@ -1,15 +1,17 @@
 package pk
 
-case class Structure(key: String, keywords: Keyword[_]*) extends Keyword[Map[String, Any]] {
-  val clazz = classOf[Map[String, Any]]
+import Keyword.StringyMap
 
-  override def explainFailure(candidate: Map[String, Any]): String = {
+case class Structure(key: String, keywords: Keyword[_]*) extends Keyword[StringyMap] {
+  val clazz = classOf[StringyMap]
+
+  override def explainFailure(candidate: StringyMap): String = {
     keywords.map{_.explainFailure(candidate)}.filter(!_.isEmpty).mkString("; ")
   }
 
-  def conforms(candidate: Map[String, Any]): Boolean = keywords forall {_.get(candidate).isDefined}
+  def conforms(candidate: StringyMap): Boolean = keywords forall {_.get(candidate).isDefined}
 
-  def cast(candidate: Map[String, Any]): Option[Map[String, Any]] = if (conforms(candidate)) Some(candidate) else None
+  def cast(candidate: StringyMap): Option[StringyMap] = if (conforms(candidate)) Some(candidate) else None
 }
 
 // TODO implicit conversion from StringyMap to a class that has the Structure API?

@@ -1,6 +1,7 @@
 package pk
 
 import org.scalatest.{Matchers, FunSuite}
+import Keyword.StringyMap
 
 class KeywordPrimitivesTest extends FunSuite with Matchers {
 
@@ -22,8 +23,8 @@ class KeywordPrimitivesTest extends FunSuite with Matchers {
       val javaKeyword = Keyword[J]("key")
       val scalaKeyword = Keyword[S]("key")
 
-      val javaMap: Map[String, Any] = Map("key" -> (j: J))
-      val scalaMap: Map[String, Any] = Map("key" -> (s: S)) // gets boxed to java type
+      val javaMap: StringyMap = Map("key" -> (j: J))
+      val scalaMap: StringyMap = Map("key" -> (s: S)) // gets boxed to java type
 
       javaKeyword(javaMap) should be(j)
       javaKeyword(scalaMap) should be(j)

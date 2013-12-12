@@ -1,15 +1,16 @@
 package pk
 
 import org.scalatest.{Matchers, FunSuite}
+import Keyword.StringyMap
 
 class KeywordTest extends FunSuite with Matchers {
 
   val name = Keyword[String]("name")
-  val department = Keyword[Map[String, Any]]("department")
+  val department = Keyword[StringyMap]("department")
 
   test("apply, get and conforms under successful inputs") {
 
-    val joe: Map[String, Any] = Map(
+    val joe: StringyMap = Map(
       "name" -> "Joe Bloggs",
       "age" -> 23
     )
@@ -21,7 +22,7 @@ class KeywordTest extends FunSuite with Matchers {
 
   test("apply, get and conforms when key not present") {
 
-    val joe: Map[String, Any] = Map(
+    val joe: StringyMap = Map(
       "age" -> 23
     )
 
@@ -34,7 +35,7 @@ class KeywordTest extends FunSuite with Matchers {
 
   test("apply, get and conforms when key is of incorrect type") {
 
-    val joe: Map[String, Any] = Map(
+    val joe: StringyMap = Map(
       "name" -> 123,
       "age" -> 23
     )
@@ -48,13 +49,13 @@ class KeywordTest extends FunSuite with Matchers {
 
   test("explainFailure can be used to return a useful debugging message") {
 
-    val joe: Map[String, Any] = Map(
+    val joe: StringyMap = Map(
       "age" -> 23
     )
 
     name.explainFailure(joe) should include (joe.toString)
 
-    val joe2: Map[String, Any] = Map(
+    val joe2: StringyMap = Map(
       "name" -> 123,
       "age" -> 23
     )
@@ -65,12 +66,12 @@ class KeywordTest extends FunSuite with Matchers {
 
   test("example of function composition") {
 
-    val hr: Map[String, Any] = Map(
+    val hr: StringyMap = Map(
       "name" -> "HR",
       "costCentre" -> 1
     )
 
-    val joe: Map[String, Any] = Map(
+    val joe: StringyMap = Map(
       "department" -> hr
     )
 
