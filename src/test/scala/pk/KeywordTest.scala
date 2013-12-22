@@ -76,8 +76,8 @@ class KeywordTest extends FunSuite with Matchers {
 
     department(joe) should be(hr)
     
-    val f = department andThen name
-    f(joe) should be("HR")
+    val departmentName = department andThen name
+    departmentName(joe) should be("HR")
   }
 
 }
