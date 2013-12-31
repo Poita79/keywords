@@ -1,4 +1,4 @@
-package pk
+package com.github.petekneller.keywords
 
 object Keyword {
 
@@ -36,7 +36,7 @@ trait Keyword[V] extends (StringyMap => V) {
   def explainFailure(candidate: StringyMap): String = extractValue(candidate).left.map(_.getMessage).left.getOrElse("")
 
 
-  private def extractValue(candidate: StringyMap): Either[RuntimeException,V] = {
+  private def extractValue(candidate: StringyMap): Either[RuntimeException, V] = {
 
     def cast(value: Any): Either[RuntimeException, V] = {
       if (equivalent(clazz, value.getClass))
@@ -64,7 +64,6 @@ trait Keyword[V] extends (StringyMap => V) {
     } yield castValue
   }
 }
-
 
 
 // TODO implicit conversion from StringyMap to a class that has the Keyword API?

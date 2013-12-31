@@ -1,4 +1,4 @@
-package pk
+package com.github.petekneller.keywords
 
 import org.scalatest.{Matchers, FunSuite}
 
