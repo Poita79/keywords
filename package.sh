@@ -17,5 +17,5 @@ chmod +x ./sbt.sh
 ./sbt.sh clean package makePom
 
 echo "release.files=${release_jar},${release_pom}" >> ${release_props}
-echo "release.path=pk/${project_name}/${project_name}_${scala_version}/${build_number}/" >> ${release_props}
+echo "release.path=pk/${project_name}_${scala_version}/${build_number}/" >> ${release_props}
 echo "${release_jar}.labels=Jar" >> ${release_props}
