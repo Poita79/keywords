@@ -5,10 +5,12 @@ import Keyword.StringyMap
 
 class KeywordTest extends FunSuite with Matchers {
 
+  import StringyMap.implicits._
+
   val name = Keyword[String]("name")
   val department = Keyword[StringyMap]("department")
 
-  test("apply, get and conforms under successful inputs") {
+  test(".apply, .get and .conforms under successful inputs") {
 
     val joe: StringyMap = Map(
       "name" -> "Joe Bloggs",
@@ -20,7 +22,7 @@ class KeywordTest extends FunSuite with Matchers {
   }
 
 
-  test("apply, get and conforms when key not present") {
+  test(".apply, .get and .conforms when key not present") {
 
     val joe: StringyMap = Map(
       "age" -> 23
@@ -33,7 +35,7 @@ class KeywordTest extends FunSuite with Matchers {
     ex.getMessage should include (joe.toString)
   }
 
-  test("apply, get and conforms when key is of incorrect type") {
+  test(".apply, .get and .conforms when key is of incorrect type") {
 
     val joe: StringyMap = Map(
       "name" -> 123,
@@ -79,6 +81,19 @@ class KeywordTest extends FunSuite with Matchers {
     
     val departmentName = department andThen name
     departmentName(joe) should be("HR")
+  }
+
+  test("keywords are covariant in value type") {
+    val correctFoo = Keyword[Int]("foo")
+    val wrongFoo = Keyword[String]("foo")
+    val m = StringyMap("foo" -> 2)
+    
+    def doSomething(kw: Keyword[AnyVal]): Option[AnyVal] = kw.get(m)
+
+    assert(doSomething(correctFoo) === Some(2))
+    // the following won't compile
+    // assert(f(wrongFoo) === Some(2))
+
   }
 
 }
