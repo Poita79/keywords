@@ -23,8 +23,8 @@ object Keyword {
 
 import Keyword.StringyMap
 
-// TODO should extends PartialFunction instead?
-trait Keyword[V] extends (StringyMap => V) {
+// TODO should extend PartialFunction instead?
+trait Keyword[+V] extends (StringyMap => V) {
   val key: String
   val clazz: Class[_]
 
